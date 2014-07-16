@@ -1,0 +1,6 @@
+model1<-garch.model(ywine~-1+ma(13)+xwine,~garch(1,1)+zwine)
+for(i in c(4:11)) model1$MA$which[i]<-F
+garch.model1<-garch(model=model1,series=ywine)
+arima1<-garch.model(ywine~-1+ma(13)+xwine,~garch(0,0))
+for(i in c(2:11)) arima1$MA$which[i]<-F
+arima.model1<-garch(model=arima1,series=ywine)

@@ -1,0 +1,46 @@
+From: Mark Villar [mark.villar@unsw.edu.au]
+Sent: Saturday, 6 December 2003 10:03 AM
+To: William T.M. Dunsmuir
+Subject: Script files tips and other issues
+
+Hi William,
+
+I forgot to mention these helpful hints at our meeting on Friday.
+
+Splus:
+There should be 4 or 5 pages of exploratory data plots for every script run.  
+If you want to generate the GARCH / ARIMA diagnostic plots, at the bottom of 
+the script, the code should read 
+
+#plot(winegarch)#
+#plot(winearima)#
+
+I've left these out of the script run as it overwrites the previous EDA plots 
+and they require the user to input
+
+1 - to produce All graphs (12 pages in total) then 
+0 - to Exit the input prompt, each time.
+
+SAS:
+Each code requires the user to Import Data first. The data files are text files 
+and are stored in the same folder as the code. To import data, you must save it 
+as the state's two letter abbreviation followed by either 'wine' or 'spir'. Eg. To save Iowa Spirits, you need to call it IASPIR
+
+Case against GARCH:
+Idaho wine is a special case - ARIMA seems to have worked as well as GARCH in 
+terms of accounting for the autocorrelation of the squared residuals, shown in 
+Figure 10 of Project report (p.36). This was the only case that GARCH was 
+perhaps unnecessary.  All other cases required GARCH to remove the dependence 
+in the squared residuals.  However most did not yield significantly different 
+estimates for the step parameter as shown by the asterisks in Eileen's table.  
+Note also that Idaho has two filtered pulse functions, at T=42 (intervention) 
+and at T=274 (sudden surge in series).
+
+Notation in Elaine's amended table:
+In the last column where the GARCH model specifications are displayed x is the number of exogenous terms in the mean equation.  For Alabama wine 
+these include (s1, s2, fp1, fp2, ctrl) because it had two interventions. Most 
+models only had x=3, with the exception of New Hampshire (no filtered pulse). z shows the exogenous term(s) in the variance equation. Most models had none.
+
+Hope this helps.  Have a good trip!
+
+Mark

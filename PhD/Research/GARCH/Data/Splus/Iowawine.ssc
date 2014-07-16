@@ -1,0 +1,109 @@
+Iowawine$logwine<-log(Iowawine$Wine)
+Iowawine$s1<-Iowawine$Wineoff
+Iowawine$s2<-c(rep(0,300),rep(1,n-300))
+Iowawine$s1trend<-Iowawine$s1*(1:n-210)
+n<-360
+phi<-0.665
+T0<-211
+Iowawine$fp1<-rep(0,n)
+for (t in T0:n) Iowawine$fp1[t]<-phi^(t-T0)
+Iowawine$ctrl<-log(Iowawine$Winesum/Iowawine$Popsum)
+Iowawine$ywine<-log(Iowawine$Wine/Iowawine$Popn)
+Iowawine$may85<-rep(0,n)
+Iowawine$may85[209]<-1
+Iowawine$jun85<-rep(0,n)
+Iowawine$jun85[210]<-1
+par(mfrow=c(2,2))
+
+iowawine<-rts(Iowawine[,5], start=c(1968,1), frequency=12)
+tsplot(iowawine, ylab="Litres of ethanol")
+title("Iowa Wine Consumption 1968-1997")
+
+logiowawine<-rts(Iowawine[,10], start=c(1968,1), frequency=12)
+tsplot(logiowawine, ylab="Log litres of ethanol")
+title("Log of Iowa Wine Consumption")
+
+tsplot(diff(logiowawine))
+title("Simple differences plot of Logwine")
+
+tsplot(diff(logiowawine,lag=12))
+title("Seasonal differences plot of Logwine")
+
+tsplot(diff(diff(logiowawine,lag=12)))
+title("Simple & Seasonal differences plot")
+
+winesum<-rts(Iowawine[,8], start=c(1968,1), frequency=12)
+tsplot(winesum, ylab="Litres of ethanol")
+title("Wine Consumption in Other States")
+
+popn<-rts(Iowawine[,4], start=c(1968,1), frequency=12)
+tsplot(popn)
+title("Iowa Drinking Age Population")
+
+popsum<-rts(Iowawine[,9], start=c(1968,1), frequency=12)
+tsplot(popsum)
+title("Drinking Age Population in Other States")
+
+s1<-rts(Iowawine[,11], start=c(1968,1), frequency=12)
+s2<-rts(Iowawine$s2,start=c(1968,1),frequenc=12)
+tsplot(s1, ylab="s1")
+title("Iowa Step Function")
+s1trend<-rts(Iowawine$s1trend,start=c(1968,1),frequency=12)
+fp1<-rts(Iowawine[,12], start=c(1968,1), frequency=12)
+tsplot(fp1, ylab="fp1")
+title("Iowa Filtered Pulse Function")
+
+ctrl<-rts(Iowawine[,13], start=c(1968,1), frequency=12)
+tsplot(ctrl, ylab="ctrl")
+title("Log of Per Capita Consumption in Other States")
+
+may85<-rts(Iowawine$may85,start=c(1968,1), frequency=12)
+jun85<-rts(Iowawine$jun85,start=c(1968,1), frequency=12)
+tsplot(may85,jun85,main="May and Jun pulses")
+ywine<-rts(Iowawine[,14], start=c(1968,1), frequency=12)
+tsplot(ywine, ylab="ywine")
+title("Log of Iowa Per Capita Consumption")
+
+xwine<-cbind(s1,may85,jun85,fp1,ctrl)
+xwine<-diff(diff(xwine, lag=12))
+ywine<-diff(diff(ywine, lag=12))
+
+#s1<-diff(diff(s1,lag=12))
+#tsplot(s1, ylab="s1")
+#title("Simple & seasonal differences - s1")
+
+#fp1<-diff(diff(fp1,lag=12))
+#tsplot(fp1, ylab="fp1")
+#title("Simple & seasonal differences - fp1")
+
+#ctrl<-diff(diff(ctrl,lag=12))
+#tsplot(ctrl, ylab="ctrl")
+#title("Simple & seasonal differences - ctrl")
+
+tsplot(ywine, ylab="ywine")
+title("Simple & seasonal differences - ywine")
+
+module(garch)
+zwine<-cbind(s1,s2)
+
+model1<-garch.model(ywine~-1+ma(16)+xwine,~garch(3)+zwine)
+for(i in c(2,5:11,14)) model1$MA$which[i]<-F
+garch.model1<-garch(model=model1,series=ywine,cond.dist="normal")
+#arima1<-garch.model(ywine~-1+ma(16)+xwine,~garch(0,0))
+#for(i in c(2,5:11,14)) arima1$MA$which[i]<-F
+#arima.model1<-garch(model=arima1,series=ywine)
+
+summary(garch.model1)
+
+#winegarch<-garch(ywine~-1+ma(13)+xwine, ~garch(1,1)+zwine)
+#summary(winegarch)
+
+#winearima<-garch(ywine~-1+ma(13)+xwine, ~garch(0,0))
+#summary(winearima)
+
+#plot(winegarch)#
+#plot(winearima)#
+#enter input 1 to plot All and 0 to exit#
+
+
+

@@ -1,0 +1,90 @@
+Westspir$logspir<-log(Westspir$Spir)
+Westspir$s1<-Westspir$Spiroff
+n<-396
+phi<-0.38
+T0<-267
+Westspir$fp1<-rep(0,n)
+for (t in T0:n) Westspir$fp1[t]<-phi^(t-T0)
+Westspir$ctrl<-log(10*Westspir$Spirsum/Westspir$Popsum)
+Westspir$yspir<-log(10*Westspir$Spir/Westspir$Popn)
+
+par(mfrow=c(2,2))
+
+westspir<-rts(Westspir[,5], start=c(1968,1), frequency=12)
+tsplot(westspir, ylab="Litres of ethanol")
+title("W.Virginia Spirits Consumption 1968-2000")
+
+logwestspir<-rts(Westspir[,10], start=c(1968,1), frequency=12)
+tsplot(logwestspir, ylab="Log litres of ethanol")
+title("Log of W.Virginia Spirits Consumption")
+
+tsplot(diff(logwestspir))
+title("Simple differences plot of Logspir")
+
+tsplot(diff(logwestspir,lag=12))
+title("Seasonal differences plot of Logspir")
+
+tsplot(diff(diff(logwestspir,lag=12)))
+title("Simple & Seasonal differences plot")
+
+spirsum<-rts(Westspir[,8], start=c(1968,1), frequency=12)
+tsplot(spirsum, ylab="Litres of ethanol")
+title("Spirits Consumption in Other States")
+
+popn<-rts(Westspir[,4], start=c(1968,1), frequency=12)
+tsplot(popn)
+title("W.Virginia Drinking Age Population")
+
+popsum<-rts(Westspir[,9], start=c(1968,1), frequency=12)
+tsplot(popsum)
+title("Drinking Age Population in Other States")
+
+s1<-rts(Westspir[,11], start=c(1968,1), frequency=12)
+tsplot(s1, ylab="s1")
+title("W.Virginia Step Function")
+
+fp1<-rts(Westspir[,12], start=c(1968,1), frequency=12)
+tsplot(fp1, ylab="fp1")
+title("W.Virginia Filtered Pulse Function")
+
+ctrl<-rts(Westspir[,13], start=c(1968,1), frequency=12)
+tsplot(ctrl, ylab="ctrl")
+title("Log of Per Capita Consumption in Other States")
+
+yspir<-rts(Westspir[,14], start=c(1968,1), frequency=12)
+tsplot(yspir, ylab="yspir")
+title("Log of W.Virginia Per Capita Consumption")
+
+xspir<-cbind(s1,fp1,ctrl)
+xspir<-diff(diff(xspir, lag=12))
+yspir<-diff(diff(yspir, lag=12))
+
+s1<-diff(diff(s1,lag=12))
+tsplot(s1, ylab="s1")
+title("Simple & seasonal differences - s1")
+
+fp1<-diff(diff(fp1,lag=12))
+tsplot(fp1, ylab="fp1")
+title("Simple & seasonal differences - fp1")
+
+ctrl<-diff(diff(ctrl,lag=12))
+tsplot(ctrl, ylab="ctrl")
+title("Simple & seasonal differences - ctrl")
+
+tsplot(yspir, ylab="yspir")
+title("Simple & seasonal differences - yspir")
+
+module(finmetrics) #or module(garch) depending on Splus version#
+
+spirgarch<-garch(yspir~-1+ma(13)+xspir, ~garch(1,1))
+summary(spirgarch)
+
+spirarima<-garch(yspir~-1+ma(13)+xspir, ~garch(0,0))
+summary(spirarima)
+
+#plot(spirgarch)#
+#plot(spirarima)#
+#enter input 1 to plot All and 0 to exit#
+
+
+

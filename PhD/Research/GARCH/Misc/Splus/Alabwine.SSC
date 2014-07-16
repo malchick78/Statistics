@@ -1,0 +1,119 @@
+Alabwine$logwine<-log(Alabwine$Wine)
+n<-360
+Alabwine$s1<-rep(0,n)
+Alabwine$s2<-rep(0,n)
+phi1<-0.70
+phi2<-0.20
+T0<-70
+T1<-154
+Alabwine$fp1<-rep(0,n)
+Alabwine$fp2<-rep(0,n)
+
+
+for (t in T0:n) Alabwine$fp1[t]<-phi1^(t-T0)
+for (t in T1:n) Alabwine$fp2[t]<-phi2^(t-T1)
+for (t in (T0+3):n) Alabwine$s1[t]<-1
+for (t in T1:n) Alabwine$s2[t]<-1	
+Alabwine$ctrl<-log(10*Alabwine$Winesum/Alabwine$Popsum)
+Alabwine$ywine<-log(10*Alabwine$Wine/Alabwine$Popn)
+
+alabwine<-rts(Alabwine[,5], start=c(1968,1), frequency=12)
+tsplot(alabwine, ylab="Litres of ethanol")
+title("Alabama Wine Consumption 1968-1997")
+
+logalabwine<-rts(Alabwine[,10], start=c(1968,1), frequency=12)
+tsplot(logalabwine, ylab="Log litres of ethanol")
+title("Log of Alabama Wine Consumption")
+abline(v=c(1973,1980)+10/12)
+
+tsplot(diff(logalabwine))
+title("Simple differences")
+
+tsplot(diff(logalabwine,lag=12))
+title("Seasonal differences")
+
+tsplot(diff(diff(logalabwine,lag=12)))
+title("Simple and seasonal differences")
+
+winesum<-rts(Alabwine[,8], start=c(1968,1), frequency=12)
+tsplot(winesum, ylab="Litres of ethanol")
+title("Wine Consumption in Other States")
+
+popn<-rts(Alabwine[,4], start=c(1968,1), frequency=12)
+tsplot(popn)
+title("Alabama Drinking Age Population")
+
+popsum<-rts(Alabwine[,9], start=c(1968,1), frequency=12)
+tsplot(popsum)
+title("Drinking Age Population in Other States")
+
+s1<-rts(Alabwine[,11], start=c(1968,1), frequency=12)
+tsplot(s1, ylab="s1")
+title("Alabama Step Function 1")
+
+s2<-rts(Alabwine[,12], start=c(1968,1), frequency=12)
+tsplot(s2, ylab="s2")
+title("Alabama Step Function 2")
+
+p1<-rts(c(rep(0,(T0-1)),1,rep(0,n-T0)),start=c(1968,1),frequency=12)
+p1.l1<-rts(c(rep(0,(T0)),1,rep(0,n-T0-1)),start=c(1968,1),frequency=12)
+p1.l2<-rts(c(rep(0,(T0+1)),1,rep(0,n-T0-2)),start=c(1968,1),frequency=12)
+
+p2<-rts(c(rep(0,(T1-1)),1,rep(0,n-T0)),start=c(1968,1),frequency=12)
+
+fp1<-rts(Alabwine[,13], start=c(1968,1), frequency=12)
+tsplot(fp1, ylab="fp1")
+title("Alabama Filtered Pulse Function 1")
+
+fp2<-rts(Alabwine[,14], start=c(1968,1), frequency=12)
+tsplot(fp2, ylab="fp2")
+title("Alabama Filtered Pulse Function 2")
+
+ctrl<-rts(Alabwine[,15], start=c(1968,1), frequency=12)
+tsplot(ctrl, ylab="ctrl")
+title("Log of Per Capita Consumption in Other States")
+
+ywine<-rts(Alabwine[,16], start=c(1968,1), frequency=12)
+tsplot(ywine, ylab="y")
+title("Log of Alabama Per Capita Consumption")
+
+#xwine<-cbind(s1,s2,fp1,fp2,ctrl)
+xwine<-cbind(s1,p2,s2,ctrl)
+xwine<-diff(diff(xwine, lag=12))
+ywine<-diff(diff(ywine, lag=12))
+
+ctrl<-diff(diff(ctrl,lag=12))
+tsplot(ctrl, ylab="x")
+title("Simple and seasonal differences - ctrl")
+
+tsplot(ywine)
+title("Simple and seasonal differences")
+
+
+
+module(finmetrics) #or module(garch) depending on Splus version#
+zwine<-cbind(s2)
+
+model1<-garch.model(ywine~-1+ma(13)+xwine,~garch(2,0)+zwine)
+for(i in c(2:11)) model1$MA$which[i]<-F
+garch.model1<-garch(model=model1,series=ywine)
+arima1<-garch.model(ywine~-1+ma(13)+xwine,~garch(0,0))
+for(i in c(2:11)) arima1$MA$which[i]<-F
+arima.model1<-garch(model=arima1,series=ywine)
+model2<-garch.model(ywine~-1+ma(13)+xwine,~garch(2,1)+zwine)
+garch.model2<-garch(model=model2,series=ywine)
+for(i in c(2:11)) model2$MA$which[i]<-F
+garch.model2<-garch(model=model2,series=ywine)
+
+#winegarch<-garch(ywine~-1+ma(13)+xwine, ~garch(1,1)+zwine, cond.dist="t")
+#summary(winegarch)
+
+#winearima<-garch(ywine~-1+ma(13)+xwine, ~garch(0,0))
+#summary(winearima)
+
+#plot(winegarch)#
+#plot(winearima)#
+#enter input 1 to plot All and 0 to exit#
+
+
+

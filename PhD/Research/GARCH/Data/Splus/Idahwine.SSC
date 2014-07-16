@@ -1,0 +1,93 @@
+Idahwine$logwine<-log(Idahwine$Wine)
+Idahwine$s1<-Idahwine$Wineoff
+n<-360
+phi1<-0.61
+phi2<-0.20
+T0<-42
+T1<-274
+Idahwine$fp1<-rep(0,n)
+for (t in T0:n) Idahwine$fp1[t]<-phi1^(t-T0)
+for (t in T1:n) Idahwine$fp1[t]<-phi2^(t-T1)
+Idahwine$ctrl<-log(10*Idahwine$Winesum/Idahwine$Popsum)
+Idahwine$ywine<-log(10*Idahwine$Wine/Idahwine$Popn)
+	
+par(mfrow=c(2,2))
+
+idahwine<-rts(Idahwine[,5], start=c(1968,1), frequency=12)
+tsplot(idahwine, ylab="Litres of ethanol")
+title("Idaho Wine Consumption 1968-1997")
+
+logidahwine<-rts(Idahwine[,10], start=c(1968,1), frequency=12)
+tsplot(logidahwine, ylab="Log litres of ethanol")
+title("Log of Idaho Wine Consumption")
+
+tsplot(diff(logidahwine))
+title("Simple differences plot of Logwine")
+
+tsplot(diff(logidahwine,lag=12))
+title("Seasonal differences plot of Logwine")
+
+tsplot(diff(diff(logidahwine,lag=12)))
+title("Simple & Seasonal differences plot")
+
+winesum<-rts(Idahwine[,8], start=c(1968,1), frequency=12)
+tsplot(winesum, ylab="Litres of ethanol")
+title("Wine Consumption in Other States")
+
+popn<-rts(Idahwine[,4], start=c(1968,1), frequency=12)
+tsplot(popn)
+title("Idaho Drinking Age Population")
+
+popsum<-rts(Idahwine[,9], start=c(1968,1), frequency=12)
+tsplot(popsum)
+title("Drinking Age Population in Other States")
+
+s1<-rts(Idahwine[,11], start=c(1968,1), frequency=12)
+tsplot(s1, ylab="s1")
+title("Idaho Step Function")
+
+fp1<-rts(Idahwine[,12], start=c(1968,1), frequency=12)
+tsplot(fp1, ylab="fp1")
+title("Idaho Filtered Pulse Function")
+
+ctrl<-rts(Idahwine[,13], start=c(1968,1), frequency=12)
+tsplot(ctrl, ylab="ctrl")
+title("Log of Per Capita Consumption in Other States")
+
+ywine<-rts(Idahwine[,14], start=c(1968,1), frequency=12)
+tsplot(ywine, ylab="ywine")
+title("Log of Idaho Per Capita Consumption")
+
+xwine<-cbind(s1,fp1,ctrl)
+xwine<-diff(xwine, lag=12)
+ywine<-diff(ywine, lag=12)
+
+s1<-diff(s1,lag=12)
+tsplot(s1, ylab="s1")
+title("Seasonal differences - s1")
+
+fp1<-diff(fp1,lag=12)
+tsplot(fp1, ylab="fp1")
+title("Seasonal differences - fp1")
+
+ctrl<-diff(ctrl,lag=12)
+tsplot(ctrl, ylab="ctrl")
+title("Seasonal differences - ctrl")
+
+tsplot(ywine, ylab="ywine")
+title("Seasonal differences - ywine")
+
+module(finmetrics) #or module(garch) depending on Splus version#
+
+winegarch<-garch(ywine~-1+ma(13)+xwine, ~garch(1,2), cond.dist="t")
+summary(winegarch)
+
+winearima<-garch(ywine~-1+ma(13)+xwine, ~garch(0,0))
+summary(winearima)
+
+#plot(winegarch)#
+#plot(winearima)#
+#enter input 1 to plot All and 0 to exit#
+
+
+

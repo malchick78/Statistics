@@ -1,0 +1,108 @@
+Montwine$logwine<-log(Montwine$Wine)
+Montwine$s1<-Montwine$Wineoff
+n<-360
+phi<-0.31
+T0<-139
+Montwine$fp1<-rep(0,n)
+for (t in (T0+1):n) Montwine$fp1[t]<-phi^(t-T0-1)
+Montwine$ctrl<-log(10*Montwine$Winesum/Montwine$Popsum)
+Montwine$ywine<-log(10*Montwine$Wine/Montwine$Popn)
+
+par(mfrow=c(2,2))
+
+montwine<-rts(Montwine[,5], start=c(1968,1), frequency=12)
+tsplot(montwine, ylab="Litres of ethanol")
+title("Montana Wine Consumption 1968-1997")
+
+logmontwine<-rts(Montwine[,10], start=c(1968,1), frequency=12)
+tsplot(logmontwine, ylab="Log litres of ethanol")
+title("Log of Montana Wine Consumption")
+
+tsplot(diff(logmontwine))
+title("Simple differences plot of Logwine")
+
+tsplot(diff(logmontwine,lag=12))
+title("Seasonal differences plot of Logwine")
+
+tsplot(diff(diff(logmontwine,lag=12)))
+title("Simple & Seasonal differences plot")
+
+winesum<-rts(Montwine[,8], start=c(1968,1), frequency=12)
+tsplot(winesum, ylab="Litres of ethanol")
+title("Wine Consumption in Other States")
+
+popn<-rts(Montwine[,4], start=c(1968,1), frequency=12)
+tsplot(popn)
+title("Montana Drinking Age Population")
+
+popsum<-rts(Montwine[,9], start=c(1968,1), frequency=12)
+tsplot(popsum)
+title("Drinking Age Population in Other States")
+
+s1<-rts(Montwine[,11], start=c(1968,1), frequency=12)
+tsplot(s1, ylab="s1")
+title("Montana Step Function")
+
+p1<-rep(0,n)
+p1[T0]<-1
+p1<-rts(p1,start=c(1968,1),frequency=12)
+
+fp1<-rts(Montwine[,12], start=c(1968,1), frequency=12)
+tsplot(fp1, ylab="fp1")
+title("Montana Filtered Pulse Function")
+
+ctrl<-rts(Montwine[,13], start=c(1968,1), frequency=12)
+tsplot(ctrl, ylab="ctrl")
+title("Log of Per Capita Consumption in Other States")
+
+ywine<-rts(Montwine[,14], start=c(1968,1), frequency=12)
+tsplot(ywine, ylab="ywine")
+title("Log of Montana Per Capita Consumption")
+
+xwine<-cbind(s1,p1,fp1,ctrl)
+xwine<-diff(diff(xwine, lag=12))
+ywine<-diff(diff(ywine, lag=12))
+
+
+tsplot(diff(diff(s1,lag=12)), ylab="s1")
+title("Simple & seasonal differences - s1")
+
+fp1<-diff(diff(fp1,lag=12))
+tsplot(fp1, ylab="fp1")
+title("Simple & seasonal differences - fp1")
+
+ctrl<-diff(diff(ctrl,lag=12))
+tsplot(ctrl, ylab="ctrl")
+title("Simple & seasonal differences - ctrl")
+
+tsplot(ywine, ylab="ywine")
+title("Simple & seasonal differences - ywine")
+
+Montwine$p1<-rep(0,n)
+Montwine$p1[T0]<-1
+
+module(garch)
+zwine<-cbind(s1)
+
+model1<-garch.model(ywine~-1+ma(13)+xwine,~garch(1,1))
+for(i in c(2:11)) model1$MA$which[i]<-F
+garch.model1<-garch(model=model1,series=ywine,cond.dist="normal")
+
+arima1<-garch.model(ywine~-1+ma(13)+xwine,~garch(0,0))
+for(i in c(2:11)) arima1$MA$which[i]<-F
+arima.model1<-garch(model=arima1,series=ywine)
+
+summary(garch.model1)
+summary(arima.model1)
+
+#winegarch<-garch(ywine~-1+ma(13)+xwine, ~garch(1,1))
+#summary(winegarch)
+
+#winearima<-garch(ywine~-1+ma(13)+xwine, ~garch(0,0))
+#summary(winearima)
+
+#plot(winegarch)#
+#plot(winearima)#
+#enter input 1 to plot All and 0 to exit#
+
+

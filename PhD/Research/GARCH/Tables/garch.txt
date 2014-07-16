@@ -1,0 +1,566 @@
+ARCH(2)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(2, 0) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.685657 0.0432968 -15.836 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.792227 0.0359675 -22.026 0.000e+000
+    MA(13)  0.513168 0.0507406  10.114 0.000e+000
+  xwine.s1  0.427087 0.0398128  10.727 0.000e+000
+  xwine.p2  0.761849 0.0353884  21.528 0.000e+000
+  xwine.s2  0.297997 0.0376330   7.919 1.776e-014
+xwine.ctrl  0.454657 0.0762768   5.961 3.176e-009
+         A  0.002794 0.0006215   4.495 4.795e-006
+   ARCH(1)  0.298582 0.0866291   3.447 3.198e-004
+   ARCH(2)  0.236657 0.0768015   3.081 1.115e-003
+     zwine  0.014814 0.0034409   4.305 1.095e-005
+
+--------------------------------------------------------------
+
+AIC(11) = -477.5615
+BIC(11) = -435.219
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       2.833  0.2426       0.9915   0.976
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     19.47  0.0779         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     17.79  0.1224         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1 Lag 2  Lag 3  Lag 4  Lag 5   Lag 6   Lag 7 Lag 8 Lag 9 Lag 10 Lag 11 
+ 1.278 1.636 0.2626 0.6757 -1.651 -0.6556 -0.1993 1.424 1.792 0.9599  1.548
+
+ Lag 12       C 
+  0.016 -0.9317
+
+  TR^2 P-value F-stat P-value 
+ 17.19  0.1427  1.647  0.1773
+
+ARCH(1)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(1, 0) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.690629 0.0224545 -30.757 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.748886 0.0393601 -19.027 0.000e+000
+    MA(13)  0.493256 0.0423132  11.657 0.000e+000
+  xwine.s1  0.419176 0.0461619   9.081 0.000e+000
+  xwine.p2  0.141602 0.0478086   2.962 1.638e-003
+  xwine.s2  0.881144 0.0388418  22.685 0.000e+000
+xwine.ctrl  0.542004 0.0826861   6.555 1.044e-010
+         A  0.003606 0.0006505   5.542 3.012e-008
+   ARCH(1)  0.419432 0.0822280   5.101 2.828e-007
+     zwine  0.019570 0.0030085   6.505 1.407e-010
+
+--------------------------------------------------------------
+
+AIC(10) = -454.8467
+BIC(10) = -416.3535
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera    P-value Shapiro-Wilk P-value 
+       22.24 0.00001483       0.9948  0.9987
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     16.31  0.1773         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic    P-value Chi^2-d.f. 
+     56.89 8.281e-008         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2   Lag 3   Lag 4 Lag 5   Lag 6   Lag 7   Lag 8 Lag 9 Lag 10 
+ 4.031 0.8861 -0.2568 -0.3475   0.6 -0.9029 -0.8907 0.05411 3.997  1.228
+
+ Lag 11   Lag 12       C 
+  1.506 -0.01496 -0.6186
+
+  TR^2    P-value F-stat  P-value 
+ 43.28 0.00002024  4.518 0.003872
+
+GARCH(1,1)
+
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(1, 1) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.681432 0.0356673 -19.105 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.790098 0.0353607 -22.344 0.000e+000
+    MA(13)  0.508470 0.0511192   9.947 0.000e+000
+  xwine.s1  0.426142 0.0373154  11.420 0.000e+000
+  xwine.p2  0.180280 0.0510780   3.530 2.372e-004
+  xwine.s2  0.866416 0.0406811  21.298 0.000e+000
+xwine.ctrl  0.468739 0.0738143   6.350 3.488e-010
+         A  0.001393 0.0005839   2.385 8.819e-003
+   ARCH(1)  0.418017 0.0788558   5.301 1.045e-007
+  GARCH(1)  0.395806 0.1031214   3.838 7.402e-005
+     zwine  0.007353 0.0031863   2.308 1.081e-002
+
+--------------------------------------------------------------
+
+AIC(11) = -465.8812
+BIC(11) = -423.5386
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       4.264  0.1186       0.9934  0.9947
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     19.15 0.08493         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic  P-value Chi^2-d.f. 
+     38.61 0.000122         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2   Lag 3   Lag 4   Lag 5  Lag 6   Lag 7  Lag 8 Lag 9 Lag 10 
+  2.49 0.3235 -0.6657 -0.5836 -0.8262 -1.534 0.04782 0.6836 2.869 0.7366
+
+ Lag 11  Lag 12       C 
+  1.926 0.06063 -0.4813
+
+  TR^2  P-value F-stat P-value 
+ 28.98 0.003969  2.884 0.02573
+
+ARCH(3)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(3, 0) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.655748 0.0430050 -15.248 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.787114 0.0359492 -21.895 0.000e+000
+    MA(13)  0.485148 0.0524976   9.241 0.000e+000
+  xwine.s1  0.441827 0.0340419  12.979 0.000e+000
+  xwine.p2  0.225046 0.0579480   3.884 6.201e-005
+  xwine.s2  0.796054 0.0569171  13.986 0.000e+000
+xwine.ctrl  0.459021 0.0753114   6.095 1.505e-009
+         A  0.002244 0.0006666   3.367 4.240e-004
+   ARCH(1)  0.328231 0.0904978   3.627 1.657e-004
+   ARCH(2)  0.312534 0.0928304   3.367 4.246e-004
+   ARCH(3)  0.087783 0.0828340   1.060 1.450e-001
+     zwine  0.011075 0.0035028   3.162 8.560e-004
+
+--------------------------------------------------------------
+
+AIC(12) = -465.6584
+BIC(12) = -419.4665
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       6.022 0.04925       0.9917  0.9789
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     20.09 0.06541         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic   P-value Chi^2-d.f. 
+     33.85 0.0007126         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2  Lag 3   Lag 4  Lag 5  Lag 6 Lag 7  Lag 8 Lag 9 Lag 10 Lag 11 
+ 2.127 0.4271 0.3429 -0.6843 -1.025 -1.535  1.16 0.7634 3.156 0.1653  1.079
+
+  Lag 12       C 
+ 0.02297 -0.4299
+
+  TR^2 P-value F-stat P-value 
+ 26.07 0.01048   2.57 0.04001
+
+ARCH(4)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(4, 0) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error  t value   Pr(>|t|) 
+     MA(1) -0.665055 0.0420101 -15.8308 0.000e+000
+     MA(2)  0.000000        NA       NA         NA
+     MA(3)  0.000000        NA       NA         NA
+     MA(4)  0.000000        NA       NA         NA
+     MA(5)  0.000000        NA       NA         NA
+     MA(6)  0.000000        NA       NA         NA
+     MA(7)  0.000000        NA       NA         NA
+     MA(8)  0.000000        NA       NA         NA
+     MA(9)  0.000000        NA       NA         NA
+    MA(10)  0.000000        NA       NA         NA
+    MA(11)  0.000000        NA       NA         NA
+    MA(12) -0.790991 0.0356493 -22.1881 0.000e+000
+    MA(13)  0.495082 0.0517083   9.5745 0.000e+000
+  xwine.s1  0.437451 0.0346449  12.6267 0.000e+000
+  xwine.p2  0.214057 0.0529858   4.0399 3.320e-005
+  xwine.s2  0.816415 0.0492727  16.5693 0.000e+000
+xwine.ctrl  0.457631 0.0746463   6.1307 1.234e-009
+         A  0.002216 0.0007354   3.0128 1.393e-003
+   ARCH(1)  0.330964 0.0835925   3.9593 4.595e-005
+   ARCH(2)  0.297572 0.0922413   3.2260 6.897e-004
+   ARCH(3)  0.072588 0.0827780   0.8769 1.906e-001
+   ARCH(4)  0.017613 0.0364636   0.4830 3.147e-001
+     zwine  0.011186 0.0037243   3.0036 1.435e-003
+
+--------------------------------------------------------------
+
+AIC(13) = -464.4389
+BIC(13) = -414.3977
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       5.042  0.0804       0.9912  0.9702
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     19.33 0.08088         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic  P-value Chi^2-d.f. 
+     31.59 0.001598         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2  Lag 3   Lag 4  Lag 5  Lag 6  Lag 7  Lag 8 Lag 9 Lag 10 Lag 11 
+ 1.975 0.4811 -0.298 -0.7348 -1.058 -1.551 0.9588 0.7319 3.011 0.0711  1.285
+
+  Lag 12       C 
+ 0.03722 -0.2323
+
+  TR^2 P-value F-stat P-value 
+ 24.68 0.01639  2.423 0.04983
+
+GARCH(1,2)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(1, 2) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.664726 0.0355407 -18.703 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.783079 0.0356089 -21.991 0.000e+000
+    MA(13)  0.496302 0.0488663  10.156 0.000e+000
+  xwine.s1  0.449349 0.0400149  11.230 0.000e+000
+  xwine.p2  0.137838 0.0509435   2.706 3.582e-003
+  xwine.s2  0.877521 0.0461569  19.012 0.000e+000
+xwine.ctrl  0.444090 0.0819207   5.421 5.680e-008
+         A  0.001686 0.0002406   7.006 6.757e-012
+   ARCH(1)  0.339539 0.0513738   6.609 7.618e-011
+  GARCH(1)  0.728589 0.0200854  36.275 0.000e+000
+  GARCH(2) -0.265949 0.0080913 -32.868 0.000e+000
+     zwine  0.006687 0.0017717   3.774 9.494e-005
+
+--------------------------------------------------------------
+
+AIC(12) = -469.5206
+BIC(12) = -423.3287
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       3.076  0.2148       0.9903  0.9489
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     15.28  0.2263         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic  P-value Chi^2-d.f. 
+     29.19 0.003694         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2  Lag 3   Lag 4 Lag 5   Lag 6  Lag 7  Lag 8 Lag 9  Lag 10 Lag 11 
+ 2.273 0.1887 0.4889 -0.1565 -0.22 -0.9701 0.9642 0.7858 2.743 0.06926  1.346
+
+  Lag 12      C 
+ -0.1271 0.5252
+
+  TR^2 P-value F-stat P-value 
+ 22.71 0.03033  2.214  0.0687
+
+GARCH(2,1)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(2, 1) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.697856 0.0449689 -15.519 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.779187 0.0380671 -20.469 0.000e+000
+    MA(13)  0.513654 0.0521494   9.850 0.000e+000
+  xwine.s1  0.462872 0.0251652  18.393 0.000e+000
+  xwine.p2  0.741865 0.0333590  22.239 0.000e+000
+  xwine.s2  0.319281 0.0320892   9.950 0.000e+000
+xwine.ctrl  0.433855 0.0772297   5.618 2.036e-008
+         A  0.001797 0.0008641   2.080 1.915e-002
+   ARCH(1)  0.224431 0.0829261   2.706 3.575e-003
+   ARCH(2)  0.242330 0.1098563   2.206 1.404e-002
+  GARCH(1)  0.237935 0.1858284   1.280 1.006e-001
+     zwine  0.009730 0.0044233   2.200 1.426e-002
+
+--------------------------------------------------------------
+
+AIC(12) = -480.1989
+BIC(12) = -434.007
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       1.082   0.582       0.9915  0.9768
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     19.22  0.0834         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     20.62 0.05625         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1 Lag 2   Lag 3   Lag 4  Lag 5  Lag 6  Lag 7 Lag 8 Lag 9 Lag 10 Lag 11 
+ 1.073  1.14 -0.1942 -0.4419 -1.559 -1.536 0.3103 1.133 2.446 0.7917  1.294
+
+  Lag 12       C 
+ 0.04525 -0.5528
+
+ TR^2 P-value F-stat P-value 
+ 18.5  0.1014   1.78  0.1407
+
+GARCH(2,2)
+> summary(garch.model1)
+
+Call: 
+garch(series = ywine, model = model1)
+
+Mean Equation: ywine ~ -1 + ma(13) + xwine
+
+Conditional Variance Equation:  ~ garch(2, 2) + zwine
+
+Conditional Distribution:  gaussian
+
+--------------------------------------------------------------
+
+Estimated Coefficients:
+--------------------------------------------------------------
+               Value Std.Error t value   Pr(>|t|) 
+     MA(1) -0.718774 0.0422988 -16.993 0.000e+000
+     MA(2)  0.000000        NA      NA         NA
+     MA(3)  0.000000        NA      NA         NA
+     MA(4)  0.000000        NA      NA         NA
+     MA(5)  0.000000        NA      NA         NA
+     MA(6)  0.000000        NA      NA         NA
+     MA(7)  0.000000        NA      NA         NA
+     MA(8)  0.000000        NA      NA         NA
+     MA(9)  0.000000        NA      NA         NA
+    MA(10)  0.000000        NA      NA         NA
+    MA(11)  0.000000        NA      NA         NA
+    MA(12) -0.771889 0.0388482 -19.869 0.000e+000
+    MA(13)  0.530682 0.0502586  10.559 0.000e+000
+  xwine.s1  0.478913 0.0253049  18.926 0.000e+000
+  xwine.p2  0.687183 0.0371985  18.473 0.000e+000
+  xwine.s2  0.339812 0.0333930  10.176 0.000e+000
+xwine.ctrl  0.439669 0.0808240   5.440 5.164e-008
+         A  0.002157 0.0006655   3.242 6.543e-004
+   ARCH(1)  0.159614 0.0772324   2.067 1.977e-002
+   ARCH(2)  0.182078 0.1006525   1.809 3.568e-002
+  GARCH(1)  0.512047 0.1919396   2.668 4.004e-003
+  GARCH(2) -0.250507 0.1156276  -2.166 1.549e-002
+     zwine  0.011718 0.0038959   3.008 1.416e-003
+
+--------------------------------------------------------------
+
+AIC(13) = -480.188
+BIC(13) = -430.1468
+
+Normality Test:
+--------------------------------------------------------------
+ Jarque-Bera P-value Shapiro-Wilk P-value 
+       1.527  0.4661       0.9902  0.9455
+
+Ljung-Box test for standardized residuals:
+--------------------------------------------------------------
+ Statistic P-value Chi^2-d.f. 
+     18.75 0.09483         12
+
+Ljung-Box test for squared standardized residuals:
+--------------------------------------------------------------
+ Statistic  P-value Chi^2-d.f. 
+     27.11 0.007447         12
+
+Lagrange multiplier test:
+--------------------------------------------------------------
+ Lag 1  Lag 2  Lag 3    Lag 4  Lag 5  Lag 6  Lag 7  Lag 8 Lag 9 Lag 10 Lag 11 
+ 2.044 0.6944 0.4068 -0.09406 -1.313 -1.471 0.7656 0.7568 3.135 0.3642  1.188
+
+   Lag 12       C 
+ -0.07058 -0.1823
+
+  TR^2 P-value F-stat P-value 
+ 23.48 0.02391  2.295 0.06051

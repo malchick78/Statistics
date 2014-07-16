@@ -1,0 +1,69 @@
+Alabwine$logwine<-log(Alabwine$Wine)
+n<-360
+Alabwine$s1<-rep(0,n)
+Alabwine$s2<-rep(0,n)
+phi1<-0.70
+phi2<-0.20
+T0<-70
+T1<-154
+Alabwine$fp1<-rep(0,n)
+Alabwine$fp2<-rep(0,n)
+
+
+for (t in T0:n) Alabwine$fp1[t]<-phi1^(t-T0)
+for (t in T1:n) Alabwine$fp2[t]<-phi2^(t-T1)
+for (t in (T0+3):n) Alabwine$s1[t]<-1
+for (t in T1:n) Alabwine$s2[t]<-1	
+Alabwine$ctrl<-log(10*Alabwine$Winesum/Alabwine$Popsum)
+Alabwine$ywine<-log(10*Alabwine$Wine/Alabwine$Popn)
+
+alabwine<-rts(Alabwine[,5], start=c(1968,1), frequency=12)
+
+logalabwine<-rts(Alabwine[,10], start=c(1968,1), frequency=12)
+
+winesum<-rts(Alabwine[,8], start=c(1968,1), frequency=12)
+
+popn<-rts(Alabwine[,4], start=c(1968,1), frequency=12)
+
+popsum<-rts(Alabwine[,9], start=c(1968,1), frequency=12)
+
+s1<-rts(Alabwine[,11], start=c(1968,1), frequency=12)
+
+s2<-rts(Alabwine[,12], start=c(1968,1), frequency=12)
+
+p1<-rts(c(rep(0,(T0-1)),1,rep(0,n-T0)),start=c(1968,1),frequency=12)
+p1.l1<-rts(c(rep(0,(T0)),1,rep(0,n-T0-1)),start=c(1968,1),frequency=12)
+p1.l2<-rts(c(rep(0,(T0+1)),1,rep(0,n-T0-2)),start=c(1968,1),frequency=12)
+
+p2<-rts(c(rep(0,(T1-1)),1,rep(0,n-T0)),start=c(1968,1),frequency=12)
+
+fp1<-rts(Alabwine[,13], start=c(1968,1), frequency=12)
+
+fp2<-rts(Alabwine[,14], start=c(1968,1), frequency=12)
+
+ctrl<-rts(Alabwine[,15], start=c(1968,1), frequency=12)
+
+ywine<-rts(Alabwine[,16], start=c(1968,1), frequency=12)
+
+xwine<-cbind(s1,p2,s2,ctrl)
+xwine<-diff(diff(xwine, lag=12))
+ywine<-diff(diff(ywine, lag=12))
+
+ctrl<-diff(diff(ctrl,lag=12))
+
+
+module(finmetrics) 
+zwine<-cbind(s2)
+
+model1<-garch.model(ywine~-1+ma(13)+xwine,~garch(1,1)+zwine)
+for(i in c(2:11)) model1$MA$which[i]<-F
+garch.model1<-garch(model=model1,series=ywine)
+arima1<-garch.model(ywine~-1+ma(13)+xwine,~garch(0,0))
+for(i in c(2:11)) arima1$MA$which[i]<-F
+arima.model1<-garch(model=arima1,series=ywine)
+model2<-garch.model(ywine~-1+ma(13)+xwine,~garch(2,1)+zwine)
+garch.model2<-garch(model=model2,series=ywine)
+for(i in c(2:11)) model2$MA$which[i]<-F
+garch.model2<-garch(model=model2,series=ywine)
+
+
